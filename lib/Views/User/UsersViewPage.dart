@@ -1,8 +1,9 @@
-import 'package:backend_with_flutter_example/DataAccessLayers/UserDal/UserRepository.dart';
+import 'package:backend_with_flutter_example/Controllers/UserDal/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'Model/UserModel.dart';
+import '../../Model/UserModel.dart';
+import 'UserForm.dart';
 
 class UsersViewPage extends ConsumerWidget{
 
@@ -29,7 +30,7 @@ class UsersViewPage extends ConsumerWidget{
                     padding: const EdgeInsets.symmetric(
                         vertical: 32.0, horizontal: 32.0),
                     child: Hero(
-                        tag: 'ogretmen',
+                        tag: 'user',
                         child: Material(
                           child: Container(
                             padding: const EdgeInsets.all(8.0),
@@ -73,7 +74,18 @@ class UsersViewPage extends ConsumerWidget{
               )),
         ],
       ),
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final created = await Navigator.of(context)
+              .push(MaterialPageRoute<bool>(builder: (context) {
+            return UserForm();
+          }));
+          if (created == true) {
+            print("refresh the users");
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
@@ -87,8 +99,8 @@ class UserRow extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("${user.id} ${user.name}"),
-      leading: CircleAvatar(child: CircleAvatar(backgroundImage: NetworkImage(user.avatar)),)
+      title: Text("${user.name}"),
+      leading: CircleAvatar(child: CircleAvatar(backgroundImage: NetworkImage("${user.avatar}")),)
     );
   }
 }

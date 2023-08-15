@@ -17,7 +17,21 @@ return userResponse.map<User>((e)=> User.fromMap(e)).toList();
     else {
       throw Exception('Users can not be recieved');
     }
+}
 
+Future<void> postUser(User user) async {
+  final response =await http.post(
+    Uri.parse('$baseUrl/user'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(user.toMap()),
+  );
+  if (response.statusCode == 201) {
+    return;
+  } else {
+    throw Exception('The user could not be added. ${response.statusCode}');
+  }
 }
 
 }

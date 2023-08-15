@@ -1,4 +1,4 @@
-import 'package:backend_with_flutter_example/UsersViewPage.dart';
+import 'package:backend_with_flutter_example/Views/User/UsersViewPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
